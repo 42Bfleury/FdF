@@ -6,7 +6,7 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:45:10 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:45:20 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:45:59 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,31 @@ static void		usage(char *name)
 	ft_putstr("\t[default] ");
 	ft_putstr(name);
 	ft_putendl(" mapFile 0x007fff 0x1b4f08 0x582900 0xffffff");
-	ft_putstr("\t[name]    ");
+	ft_putstr("\t[name]   ");
 	ft_putstr(name);
-	ft_putendl(" mapFile water    ground   rock     snow");
+	ft_putendl(" mapFile   water   ground   rock   snow");
 }
 
 int				main(int ac, char **av)
 {
-	t_event ev;
+	t_event		e;
 
-	ev.width = 1280;
-	ev.height = ev.width * 9 / 16;
-	ev.offx = ev.width / 3;
-	ev.offy = ev.height / 4;
-	ev.zoom = 1;
+	e.width = 1280;
+	e.height = e.width * 9 / 16;
+	e.offx = e.width / 3;
+	e.offy = e.height / 4;
+	e.zoom = 1;
 	if (ac < 2 || ac > 6)
 	{
 		usage(av[0]);
 		return (0);
 	}
-	load_map(&ev, av[1]);
-	load_palette(&ev, ac, av);
-	init_mlx(&ev);
-	mlx_do_key_autorepeaton(ev.mlx);
-	mlx_hook(ev.win, 2, (1L << 0), &key_hook, &ev);
-	mlx_expose_hook(ev.win, &expose_hook, &ev);
-	mlx_loop(ev.mlx);
+	load_map(&e, av[1]);
+	load_palette(&e, ac, av);
+	init_mlx(&e);
+	mlx_do_key_autorepeaton(e.mlx);
+	mlx_hook(e.win, 2, (1L << 0), &key_hook, &e);
+	mlx_expose_hook(e.win, &expose_hook, &e);
+	mlx_loop(e.mlx);
 	return (0);
 }

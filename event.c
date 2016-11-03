@@ -6,50 +6,50 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:43:59 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:44:31 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:49:00 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int				expose_hook(t_event *ev)
+int				expose_hook(t_event *e)
 {
-	ev->render(ev);
+	e->render(e);
 	return (0);
 }
 
-static void		control(int keycode, t_event *ev)
+static void		control(int keycode, t_event *e)
 {
 	if (keycode == 125)
-		ev->offy -= 4 * ev->zoom;
+		e->offy -= 4 * e->zoom;
 	if (keycode == 126)
-		ev->offy += 4 * ev->zoom;
+		e->offy += 4 * e->zoom;
 	if (keycode == 123)
-		ev->offx += 4 * ev->zoom;
+		e->offx += 4 * e->zoom;
 	if (keycode == 124)
-		ev->offx -= 4 * ev->zoom;
+		e->offx -= 4 * e->zoom;
 	if (keycode == 69 || keycode == 24)
-		ev->zoom++;
+		e->zoom++;
 	if (keycode == 78 || keycode == 27)
-		ev->zoom--;
-	if (ev->zoom < 1)
-		ev->zoom = 1;
+		e->zoom--;
+	if (e->zoom < 1)
+		e->zoom = 1;
 	if (keycode == 18 || keycode == 83)
-		ev->render = &parallel;
+		e->render = &parallel;
 	if (keycode == 19 || keycode == 84)
-		ev->render = &iso;
+		e->render = &iso;
 	if (keycode == 20 || keycode == 85)
-		ev->render = &conical;
+		e->render = &conical;
 }
 
-int				key_hook(int keycode, t_event *ev)
+int				key_hook(int keycode, t_event *e)
 {
 	if (keycode == 53)
 	{
-		mlx_destroy_window(ev->mlx, ev->win);
+		mlx_destroy_window(e->mlx, e->win);
 		exit(0);
 	}
-	control(keycode, ev);
-	ev->render(ev);
+	control(keycode, e);
+	e->render(e);
 	return (0);
 }

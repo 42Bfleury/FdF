@@ -6,7 +6,7 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:48:08 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:48:39 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:39:07 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static size_t	ft_arraylen(char **array)
 {
-	size_t	len;
+	size_t		len;
 
 	len = 0;
 	while (*(array++))
@@ -24,9 +24,9 @@ static size_t	ft_arraylen(char **array)
 
 static t_node	*atoi_line(char **s)
 {
-	int		i;
-	t_node	*tab;
-	char	**parse;
+	int			i;
+	t_node		*tab;
+	char		**parse;
 
 	i = 0;
 	while (s[i])
@@ -52,8 +52,8 @@ static t_node	*atoi_line(char **s)
 
 static t_node	**add_int_tab(t_node **tab, int *size, t_node *nt)
 {
-	t_node	**tmp;
-	int		i;
+	t_node		**tmp;
+	int			i;
 
 	tmp = (t_node**)malloc(sizeof(t_node*) * (*size + 1));
 	if (tmp)
@@ -80,10 +80,10 @@ static void		error_map(char *str)
 
 void			load_map(t_event *e, char *path)
 {
-	int		fd;
-	char	*str;
-	char	**tb;
-	int		s;
+	int			fd;
+	char		*str;
+	char		**tb;
+	int			s;
 
 	fd = open(path, O_RDONLY);
 	if (fd >= 0)
@@ -102,5 +102,5 @@ void			load_map(t_event *e, char *path)
 		}
 	}
 	else
-		error_map("isn't exist.");
+		error_map("doesn't exist.");
 }

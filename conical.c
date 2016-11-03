@@ -6,7 +6,7 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:40:33 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:40:49 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:50:07 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static void		free_conical_line(t_point *p1, t_point **p, t_color **c)
 
 static void		conical_line(t_event *e, t_point *p0, t_point *p1, double angle)
 {
-	t_point	*p[3];
-	t_color *c[2];
-	double	i;
-	double	n;
-	double	len;
+	t_point		*p[3];
+	t_color		*c[2];
+	double		i;
+	double		n;
+	double		len;
 
 	p[0] = get_con_point(p0->x, p0->y, e->map.data[p0->y][p0->x].height * 2,
 		angle);
@@ -65,8 +65,8 @@ static void		conical_line(t_event *e, t_point *p0, t_point *p1, double angle)
 
 void			conical(t_event *e)
 {
-	t_point	*p;
-	double	angle;
+	t_point		*p;
+	double		angle;
 
 	ft_bzero(e->img.data, e->width * e->height * 4);
 	p = get_point(-1, -1);

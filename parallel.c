@@ -6,7 +6,7 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:50:52 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:51:07 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:38:29 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static void		free_parallel_line(t_point *p1, t_point **p, t_color **c)
 
 static void		parallel_line(t_event *e, t_point *p0, t_point *p1)
 {
-	t_point	*p[3];
-	t_color *c[2];
-	double	i;
-	double	n;
-	double	len;
+	t_point		*p[3];
+	t_color		*c[2];
+	double		i;
+	double		n;
+	double		len;
 
 	p[0] = get_par_point(p0->x, p0->y, e->map.data[p0->y][p0->x].height * 2);
 	p[1] = get_par_point(p1->x, p1->y, e->map.data[p1->y][p1->x].height * 2);
@@ -63,7 +63,7 @@ static void		parallel_line(t_event *e, t_point *p0, t_point *p1)
 
 void			parallel(t_event *e)
 {
-	t_point *p;
+	t_point		*p;
 
 	ft_bzero(e->img.data, e->width * e->height * 4);
 	p = get_point(-1, -1);

@@ -6,7 +6,7 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:47:19 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:47:34 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:39:40 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ static void		free_iso_line(t_point *p1, t_point **p, t_color **c)
 
 static void		iso_line(t_event *e, t_point *p0, t_point *p1)
 {
-	t_point	*p[3];
-	t_color *c[2];
-	double	i;
-	double	n;
-	double	len;
+	t_point		*p[3];
+	t_color		*c[2];
+	double		i;
+	double		n;
+	double		len;
 
 	p[0] = get_iso_point(p0->x, p0->y, e->map.data[p0->y][p0->x].height * 2);
 	p[1] = get_iso_point(p1->x, p1->y, e->map.data[p1->y][p1->x].height * 2);
@@ -63,7 +63,7 @@ static void		iso_line(t_event *e, t_point *p0, t_point *p1)
 
 void			iso(t_event *e)
 {
-	t_point *p;
+	t_point		*p;
 
 	ft_bzero(e->img.data, e->width * e->height * 4);
 	p = get_point(-1, -1);

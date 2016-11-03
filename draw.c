@@ -6,15 +6,15 @@
 /*   By: bfleury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:41:18 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/03 10:41:30 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/03 12:49:38 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_pixel(t_event *e, int x, int y, t_color *c)
+void		draw_pixel(t_event *e, int x, int y, t_color *c)
 {
-	unsigned int index;
+	unsigned int	index;
 
 	x = x + e->offx * e->zoom;
 	y = y + e->offy * e->zoom;
@@ -26,10 +26,10 @@ void	draw_pixel(t_event *e, int x, int y, t_color *c)
 	e->img.data[index + 2] = c->r;
 }
 
-void	draw_point(t_event *e, t_point *p, t_color *c, int r)
+void		draw_point(t_event *e, t_point *p, t_color *c, int r)
 {
-	int	x;
-	int y;
+	int		x;
+	int		y;
 
 	x = -1;
 	while (++x <= r * 2)
