@@ -6,7 +6,7 @@
 #    By: bfleury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/03 13:17:07 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/04 01:08:16 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ GREEN	= \033[32m
 ENDCOLOR= \033[0m
 
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror
+CFLAGS	+= -Wall -Wextra -Werror
 LIBDIR	= ../Libft
 MLXDIR	= minilibx
 LIB		= -I$(LIBDIR)/includes -L$(LIBDIR) -lft \
@@ -48,7 +48,7 @@ $(NAME):
 	@$(CC) $(CFLAGS) -c $(SRC)
 	@echo "$(GREEN)$(NAME) objects generated with success!$(ENDCOLOR)"
 	@echo "$(YELLOW)Generating $(NAME) $(TYPEFILE)...$(ENDCOLOR)"
-	@$(CC) $(FLAGS) $(LIB) $(FW) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIB) $(FW) $(OBJ) -o $(NAME)
 	@echo "$(GREEN)$(NAME) $(TYPEFILE) generated with success!$(ENDCOLOR)"
 
 objects:
@@ -105,6 +105,17 @@ refdf: fcleanfdf all
 remlx: fcleanmlx mlx
 
 relibft: fcleanlibft lib
+
+test: libft mlx
+	@echo "$(YELLOW)Generating test objects...$(ENDCOLOR)"
+	@$(CC) $(CFLAGS) -c test.c
+	@echo "$(GREEN)test objects generated with success!$(ENDCOLOR)"
+	@echo "$(YELLOW)Generating test $(TYPEFILE)...$(ENDCOLOR)"
+	@$(CC) $(CFLAGS) $(LIB) $(FW) test.o -o test
+	@echo "$(GREEN)test $(TYPEFILE) generated with success!$(ENDCOLOR)"
+	@echo "$(RED)Removing test objects...$(ENDCOLOR)"
+	@$(RM) test.o
+	@echo "$(GREEN)test objects removed with success!$(ENDCOLOR)"
 
 .PHONY : all objects mlx libft \
 		clean cleanfdf cleanmlx cleanlibft \
