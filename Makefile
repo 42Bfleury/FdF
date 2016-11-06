@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bfleury <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/04 01:08:16 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/06 11:09:26 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,13 +108,13 @@ relibft: fcleanlibft lib
 
 test: libft mlx
 	@echo "$(YELLOW)Generating test objects...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) -c test.c
+	@$(CC) $(CFLAGS) -c test.c trace_segment.c parsing.c
 	@echo "$(GREEN)test objects generated with success!$(ENDCOLOR)"
 	@echo "$(YELLOW)Generating test $(TYPEFILE)...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) $(LIB) $(FW) test.o -o test
+	@$(CC) $(CFLAGS) $(LIB) $(FW) test.o trace_segment.o parsing.o -o test
 	@echo "$(GREEN)test $(TYPEFILE) generated with success!$(ENDCOLOR)"
 	@echo "$(RED)Removing test objects...$(ENDCOLOR)"
-	@$(RM) test.o
+	@$(RM) test.o trace_segment.o parsing.o
 	@echo "$(GREEN)test objects removed with success!$(ENDCOLOR)"
 
 .PHONY : all objects mlx libft \
