@@ -6,28 +6,28 @@
 #    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/06 11:09:26 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/07 09:14:10 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= fdf
-TYPEFILE= executable
+NAME		= fdf
+TYPEFILE	= executable
 
-RED		= \033[31m
-YELLOW	= \033[33m
-GREEN	= \033[32m
-ENDCOLOR= \033[0m
+RED			= \033[31m
+YELLOW		= \033[33m
+GREEN		= \033[32m
+ENDCOLOR	= \033[0m
 
-CC		= gcc
-CFLAGS	+= -Wall -Wextra -Werror
-LIBDIR	= ../Libft
-MLXDIR	= minilibx
-LIB		= -I$(LIBDIR)/includes -L$(LIBDIR) -lft \
-		  -I$(MLXDIR) -L$(MLXDIR) -lmlx
-FW		= -framework OpenGL -framework Appkit
-RM		= rm -rf
+CC			= clang
+CFLAGS		+= -Wall -Wextra -Werror
+LIBDIR		= ../Libft
+MLXDIR		= minilibx
+LIB			= -I$(LIBDIR)/includes -L$(LIBDIR) -lft \
+			  -I$(MLXDIR) -L$(MLXDIR) -lmlx
+FW			= -framework OpenGL -framework Appkit
+RM			= rm -rf
 
-SRC 	= color.c \
+#SRC 	= color.c \
 		  conical.c \
 		  draw.c \
 		  event.c \
@@ -37,66 +37,73 @@ SRC 	= color.c \
 		  parallel.c \
 		  point.c
 
+SRC		= main.c \
+		  init_fdf.c \
+		  init_map.c \
+		  key_hook.c \
+		  image_put_pixel.c \
+		  move_image.c
+
 OBJ		= $(SRC:.c=.o)
 
 
 all: $(NAME)
 
 $(NAME):
-	@make libftgnl -C $(LIBDIR)
-	@echo "$(YELLOW)Generating $(NAME) objects...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) -c $(SRC)
-	@echo "$(GREEN)$(NAME) objects generated with success!$(ENDCOLOR)"
-	@echo "$(YELLOW)Generating $(NAME) $(TYPEFILE)...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) $(LIB) $(FW) $(OBJ) -o $(NAME)
-	@echo "$(GREEN)$(NAME) $(TYPEFILE) generated with success!$(ENDCOLOR)"
+		@make libftgnl -C $(LIBDIR)
+		@echo "$(YELLOW)Generating $(NAME) objects...$(ENDCOLOR)"
+		@$(CC) $(CFLAGS) -c $(SRC)
+		@echo "$(GREEN)$(NAME) objects generated with success!$(ENDCOLOR)"
+		@echo "$(YELLOW)Generating $(NAME) $(TYPEFILE)...$(ENDCOLOR)"
+		@$(CC) $(CFLAGS) $(LIB) $(FW) $(OBJ) -o $(NAME)
+		@echo "$(GREEN)$(NAME) $(TYPEFILE) generated with success!$(ENDCOLOR)"
 
 objects:
-	@echo "$(YELLOW)Generating $(NAME) objects...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) -c $(SRC)
-	@echo "$(GREEN)$(NAME) objects generated with success!$(ENDCOLOR)"
+		@echo "$(YELLOW)Generating $(NAME) objects...$(ENDCOLOR)"
+		@$(CC) $(CFLAGS) -c $(SRC)
+		@echo "$(GREEN)$(NAME) objects generated with success!$(ENDCOLOR)"
 
 mlx:
-	@make -C $(MLXDIR)
+		@make -C $(MLXDIR)
 
 libft:
-	@make libftgnl -C $(LIBDIR)
+		@make libftgnl -C $(LIBDIR)
 
 clean: cleanlibft cleanmlx cleanfdf
 
 cleanfdf:
-	@echo "$(RED)Removing $(NAME) objects...$(ENDCOLOR)"
-	@$(RM) $(OBJ)
-	@echo "$(GREEN)$(NAME) objects removed with success!$(ENDCOLOR)"
+		@echo "$(RED)Removing $(NAME) objects...$(ENDCOLOR)"
+		@$(RM) $(OBJ)
+		@echo "$(GREEN)$(NAME) objects removed with success!$(ENDCOLOR)"
 
 cleanmlx:
-	@make clean -C $(MLXDIR)
+		@make clean -C $(MLXDIR)
 
 cleanlibft:
-	@make clean -C $(LIBDIR)
+		@make clean -C $(LIBDIR)
 
 xclean: xcleanlibft xcleanmlx xcleanfdf
 
 xcleanfdf:
-	@echo "$(RED)Removing $(NAME) $(TYPEFILE)...$(ENDCOLOR)"
-	@$(RM) $(NAME)
-	@echo "$(GREEN)$(NAME) executable removed with success!$(ENDCOLOR)"
+		@echo "$(RED)Removing $(NAME) $(TYPEFILE)...$(ENDCOLOR)"
+		@$(RM) $(NAME)
+		@echo "$(GREEN)$(NAME) executable removed with success!$(ENDCOLOR)"
 
 xcleanmlx:
-	@make xclean -C $(MLXDIR)
+		@make xclean -C $(MLXDIR)
 
 xcleanlibft:
-	@make xclean -C $(LIBDIR)
+		@make xclean -C $(LIBDIR)
 
 fclean: clean xclean
 
 fcleanfdf: cleanfdf xcleanfdf
 
 fcleanmlx:
-	@make fclean -C $(MLXDIR)
+		@make fclean -C $(MLXDIR)
 
 fcleanlibft:
-	@make fclean -C $(LIBDIR)
+		@make fclean -C $(LIBDIR)
 
 re: fclean all
 
@@ -105,17 +112,6 @@ refdf: fcleanfdf all
 remlx: fcleanmlx mlx
 
 relibft: fcleanlibft lib
-
-test: libft mlx
-	@echo "$(YELLOW)Generating test objects...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) -c test.c trace_segment.c parsing.c
-	@echo "$(GREEN)test objects generated with success!$(ENDCOLOR)"
-	@echo "$(YELLOW)Generating test $(TYPEFILE)...$(ENDCOLOR)"
-	@$(CC) $(CFLAGS) $(LIB) $(FW) test.o trace_segment.o parsing.o -o test
-	@echo "$(GREEN)test $(TYPEFILE) generated with success!$(ENDCOLOR)"
-	@echo "$(RED)Removing test objects...$(ENDCOLOR)"
-	@$(RM) test.o trace_segment.o parsing.o
-	@echo "$(GREEN)test objects removed with success!$(ENDCOLOR)"
 
 .PHONY : all objects mlx libft \
 		clean cleanfdf cleanmlx cleanlibft \
