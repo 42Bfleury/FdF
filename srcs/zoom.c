@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_image.c                                       :+:      :+:    :+:   */
+/*   zoom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 08:12:56 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/07 12:19:28 by bfleury          ###   ########.fr       */
+/*   Created: 2016/11/08 06:43:16 by bfleury           #+#    #+#             */
+/*   Updated: 2016/11/10 00:06:39 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
-void		move_image(int key, t_mlx mlx)
+void		zoom(t_mlx *mlx, int key)
 {
-	if (key == 123)
-		mlx.img.x--;
-	if (key == 124)
-		mlx.img.x++;
-	if (key == 125)
-		mlx.img.y++;
-	if (key == 126)
-		mlx.img.y--;
-	display_image(mlx);
+	if (key == 69 && mlx->img.zoom < FDF_ZOOM_MAX)
+		mlx->img.zoom += 2;
+	else if (key == 78 && mlx->img.zoom > 2)
+		mlx->img.zoom -= 2;
+}
+
+void		deep(t_mlx *mlx, int key)
+{
+	if (key == 12 && mlx->map.amp < FDF_AMP_MAX)
+		mlx->map.amp++;
+	else if (key == 0 && mlx->map.amp > -FDF_AMP_MAX)
+		mlx->map.amp--;
 }

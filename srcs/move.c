@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_put_pixel.c                                  :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 06:49:52 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/07 09:14:01 by bfleury          ###   ########.fr       */
+/*   Created: 2016/11/07 08:12:56 by bfleury           #+#    #+#             */
+/*   Updated: 2016/11/09 23:44:45 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../includes/fdf.h"
 
-void					image_put_pixel(int x, int y, t_mlx mlx)
+void		move(t_mlx *mlx, int key)
 {
-	mlx.img.data[(mlx.img.sl * y) + (4 * x) + 2] = 0xFF;
-	mlx.img.data[(mlx.img.sl * y) + (4 * x) + 1] = 0xFF;
-	mlx.img.data[(mlx.img.sl * y) + (4 * x)] = 0xFF;
+	if (key == 123)
+		mlx->map.x -= (mlx->img.zoom / 2);
+	if (key == 124)
+		mlx->map.x += (mlx->img.zoom / 2);
+	if (key == 125)
+		mlx->map.y += (mlx->img.zoom / 2);
+	if (key == 126)
+		mlx->map.y -= (mlx->img.zoom / 2);
 }
