@@ -1,47 +1,81 @@
-##
-## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
-## 
-## Made by Olivier Crouzet
-## Login   <ol@epitech.net>
-## 
-## Started on  Tue Oct  5 15:56:43 2004 Olivier Crouzet
-## Last update Tue May 15 15:41:20 2007 Olivier Crouzet
-##
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
+#    Updated: 2016/11/12 20:31:26 by bfleury          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-## Please use configure script
+INC				= %%%%
+HT				= %%%%
+DOCP			= %%%%
 
+NAME			= MLX
+TYPEFILE		= library
 
-INC	=%%%%
-HT	=%%%%
-DOCP	=%%%%
+RED				= \033[31m
+YELLOW			= \033[33m
+GREEN			= \033[1;32m
+ENDCOLOR		= \033[0m
 
-CC	= gcc
+SUCCESS			= "$(GREEN)[SUCCESS!]$(ENDCOLOR)"
+OBJECTS			= "$(YELLOW)Generating $(NAME)   object...           $(ENDCOLOR)\c"
+PROJECT			= "$(YELLOW)Generating $(NAME)   $(TYPEFILE)...          $(ENDCOLOR)\c"
+RMOBJECTS		= "$(RED)Removing   $(NAME)   objects...          $(ENDCOLOR)\c"
+RMPROJECT		= "$(RED)Removing   $(NAME) $(TYPEFILE)...            $(ENDCOLOR)\c"
 
-NAME	= libmlx.a
+CC				= gcc
+CFLAGS			= -O2 -I$(INC)
+RM				= rm -rf
 
-SRC	= mlx_init.c mlx_new_window.c mlx_pixel_put.c mlx_loop.c \
-	mlx_mouse_hook.c mlx_key_hook.c mlx_expose_hook.c mlx_loop_hook.c \
-	mlx_int_anti_resize_win.c mlx_int_do_nothing.c \
-	mlx_int_wait_first_expose.c mlx_int_get_visual.c \
-	mlx_flush_event.c mlx_string_put.c \
-	mlx_new_image.c mlx_get_data_addr.c \
-	mlx_put_image_to_window.c mlx_get_color_value.c mlx_clear_window.c \
-	mlx_xpm.c mlx_int_str_to_wordtab.c mlx_destroy_window.c \
-	mlx_int_param_event.c mlx_int_set_win_event_mask.c mlx_hook.c \
-	mlx_rgb.c mlx_destroy_image.c
+SRC_DIR			= srcs
+OBJ_DIR			= objs
+SRC				= $(shell find $(SRC_DIR) -name '*.c' -type f)
+OBJ				= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-OBJ	=$(SRC:.c=.o)
-CFLAGS	= -O3 -I$(INC)
+#SRC			= mlx_init.c mlx_new_window.c mlx_pixel_put.c mlx_loop.c \
+				mlx_mouse_hook.c mlx_key_hook.c mlx_expose_hook.c mlx_loop_hook.c \
+				mlx_int_anti_resize_win.c mlx_int_do_nothing.c \
+				mlx_int_wait_first_expose.c mlx_int_get_visual.c \
+				mlx_flush_event.c mlx_string_put.c \
+				mlx_new_image.c mlx_get_data_addr.c \
+				mlx_put_image_to_window.c mlx_get_color_value.c mlx_clear_window.c \
+				mlx_xpm.c mlx_int_str_to_wordtab.c mlx_destroy_window.c \
+				mlx_int_param_event.c mlx_int_set_win_event_mask.c mlx_hook.c \
+				mlx_rgb.c mlx_destroy_image.c
 
-all	: $(NAME) $(DOCP)
+all:			objects $(NAME)
 
-$(NAME)	: $(OBJ)
-	ar -r $(NAME) $(OBJ)
-	ranlib $(NAME)
+build:
+				@mkdir -p $(OBJ_DIR)
 
-do_cp	:
-	cp $(NAME) libmlx_$(HT).a
+objects:		build $(OBJ)
 
+$(NAME):
+				@echo $(PROJECT)
+				@ar -rc $(NAME) $(OBJ)
+				@ranlib $(NAME)
+				@echo $(SUCCESS)
 
-clean	:
-	rm -f $(OBJ) $(NAME) *~ core *.core
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
+				@echo $(OBJECTS)
+				@$(CC) $(CFLAGS) -o $@ -c $<
+				@echo $(SUCCESS)
+
+clean:
+				@echo $(RMOBJECTS)
+				@$(RM) $(OBJ_DIR)
+				@echo $(SUCCESS)
+
+xclean:
+				@echo $(RMPROJECT)
+				@$(RM) $(NAME)
+				@echo $(SUCCESS)
+
+fclean:			clean xclean
+
+re:				fclean all

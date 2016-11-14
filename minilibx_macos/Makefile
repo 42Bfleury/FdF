@@ -1,61 +1,20 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/11 03:44:46 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/11 04:10:03 by bfleury          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#
+#
 
-NAME		= libmlx.a
-TYPEFILE	= library
+NOM=libmlx.a
+SRC= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
+OBJ1=$(SRC:.c=.o)
+OBJ=$(OBJ1:.m=.o)
+CFLAGS+=-O2
 
-RED			= \033[31m
-YELLOW		= \033[33m
-GREEN		= \033[1;32m
-ENDCOLOR	= \033[0m
+all: $(NOM)
 
-SUCCESS		= "           $(GREEN)[SUCCESS!]$(ENDCOLOR)"
-OBJECTS		= "$(YELLOW)Generating $(NAME) objects... $(ENDCOLOR)\c"
-PROJECT		= "$(YELLOW)Generating $(NAME) $(TYPEFILE)...$(ENDCOLOR)\c"
-RMOBJECTS	= "$(RED)Removing $(NAME) objects...  $(ENDCOLOR)\c"
-RMPROJECT	= "$(RED)Removing $(NAME) $(TYPEFILE)...  $(ENDCOLOR)\c"
-
-SRC_DIR		= srcs
-OBJ_DIR		= objs
-SRC			= $(shell find $(SRC_DIR) -name '*.m' -type f)
-OBJ			= $(SRC:$(SRC_DIR)/%.m=$(OBJ_DIR)/%.o)
-CC			= clang
-CFLAGS		+= -Wall -Wextra -Werror -O2
-RM			= rm -rf
-
-all:		build $(NAME)
-
-build :
-			@mkdir -p $(OBJ_DIR)
-
-$(NAME):	$(OBJ)
-			@ar -r $(NAME) $(OBJ)
-			@ranlib $(NAME)
-
-$(OBJ):
-			@echo $(OBJECTS)
-			@$(CC) $(CFLAGS) -c $@
-			@echo $(SUCCESS)
+$(NOM):	$(OBJ)
+	ar -r $(NOM) $(OBJ)
+	ranlib $(NOM)
 
 clean:
-			@echo $(RMOBJECTS)
-			@$(RM) $(OBJ) $(OBJ_DIR)
-			@echo $(SUCCESS)
+	rm -f $(NOM) $(OBJ) *~
+	rm -f mlx_app
 
-xclean:
-			@echo $(RMPROJECT)
-			@$(RM) $(NAME)
-			@echo $(SUCCESS)
-
-fclean:		clean xclean
-
-re:			fclean all
+re: clean all
