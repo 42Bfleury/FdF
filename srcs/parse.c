@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 03:45:08 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 02:46:52 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/14 12:00:35 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int			*convert_line(t_mlx *mlx, char *line)
 	char		**str_map;
 
 	str_map = ft_strsplit(line, ' ');
-	// length = ft_count_words(line, ' ');
-	length = ft_count_words(line, ' ') - 1;
+	length = ft_count_words(line, ' ');
+	// length = ft_count_words(line, ' ') - 1;
 	if ((result = (int*)ft_memalloc(sizeof(int) * (length + 1))) == NULL)
 		die(mlx, "ERROR: Failed to allocate line memory! (2)");
 	result[0] = length;
@@ -61,22 +61,22 @@ int			*convert_line(t_mlx *mlx, char *line)
 int			**parse_map(t_mlx *mlx)
 {
 	int			i;
-	// int			fd;
+	int			fd;
 	int			nb_char;
 	char		*line;
 	int			**result;
 
-	size_t		j;
-	FILE		*fd;
+	// size_t		j;
+	// FILE		*fd;
 
 	if ((result = (int**)ft_memalloc(sizeof(int*) * mlx->map.height)) == NULL)
 		die(NULL, "ERROR: Failed to allocate map memory! (1)");
-	// if ((fd = open(mlx->map.file, O_RDONLY)) < 0)
-	if ((fd = fopen(mlx->map.file, "r")) < 0)
+	if ((fd = open(mlx->map.file, O_RDONLY)) < 0)
+	// if ((fd = fopen(mlx->map.file, "r")) < 0)
 		die(mlx, "ERROR: Failed to open file! (2)");
 	i = 0;
-	// while ((nb_char = get_next_line(fd, &line)))
-	while ((nb_char = getline(&line, &j, fd)) > 0)
+	while ((nb_char = get_next_line(fd, &line)))
+	// while ((nb_char = getline(&line, &j, fd)) > 0)
 	{
 		if (nb_char < 0)
 			die(mlx, "ERROR: Failed to read file! (2)");
@@ -84,7 +84,7 @@ int			**parse_map(t_mlx *mlx)
 		i++;
 		ft_strdel(&line);
 	}
-	// close(fd);
-	fclose(fd);
+	close(fd);
+	// fclose(fd);
 	return (result);
 }

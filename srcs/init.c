@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 06:41:06 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 03:23:15 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/14 11:57:06 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static void		init_window(t_mlx *mlx, int width, int height, char *title)
 
 static void		init_image(t_mlx *mlx)
 {
-	if (!(mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->win.width, mlx->win.height)))
+	if (!(mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->win.width,
+		mlx->win.height)))
 		die(NULL, "ERROR: Failed to create new image!");
-	if (!(mlx->img.data = mlx_get_data_addr(mlx->img.ptr, &mlx->img.bpp, &mlx->img.sl, &mlx->img.e)))
+	if (!(mlx->img.data = mlx_get_data_addr(mlx->img.ptr, &mlx->img.bpp,
+		&mlx->img.sl, &mlx->img.e)))
 		die(NULL, "ERROR: Failed to get the image data address!");
 }
 
@@ -64,8 +66,6 @@ void			init(int width, int height, char *title, char *file)
 	mlx_key_hook(mlx.win.ptr, key_hook, &mlx);
 	// mlx_loop_hook(mlx.ptr, loop_hook, &mlx);
 	draw_map(&mlx);
-	if(!mlx_put_image_to_window(mlx.ptr, mlx.win.ptr, mlx.img.ptr, 0, 0))
-		die(&mlx, "ERROR: Failed to load image in the window!");
 	if (!mlx_loop(mlx.ptr))
 		die(&mlx, "ERROR: Failed to init MLX loop!");
 }

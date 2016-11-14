@@ -1,13 +1,12 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   segment.c                                          :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 07:51:58 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/09 21:39:51 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/14 11:58:05 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +83,14 @@ void	draw_map(t_mlx *mlx)
 	t_point		a;
 
 	y = 0;
-	// ft_bzero(mlx->img.data, (mlx->win.width * mlx->win.height * 4));
-	if (!(mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->win.width, mlx->win.height)))
-		die(NULL, "ERROR: Failed to create new image!");
-	if (!(mlx->img.data = mlx_get_data_addr(mlx->img.ptr, &mlx->img.bpp, &mlx->img.sl, &mlx->img.e)))
-		die(NULL, "ERROR: Failed to get the image data address!");
+	ft_bzero(mlx->img.data, (mlx->win.width * mlx->win.height * 4));
 	while (y < mlx->map.height)
 	{
 		x = 0;
-		while (x <= mlx->map.tab[y][0])
+		while (x < mlx->map.tab[y][0])
 		{
 			a = create_point(mlx, x, y);
-			if(x < mlx->map.tab[y][0])
+			if(x < mlx->map.tab[y][0] - 1)
 				trace_segment(mlx, a, create_point(mlx, (x + 1), y));
 			if(y < mlx->map.height - 1)
 				trace_segment(mlx, a, create_point(mlx, x, (y + 1)));
@@ -103,4 +98,6 @@ void	draw_map(t_mlx *mlx)
 		}
 		y++;
 	}
+	if(!mlx_put_image_to_window(mlx->ptr, mlx->win.ptr, mlx->img.ptr, 0, 0))
+		die(mlx, "ERROR: Failed to load image in the window!");
 }
