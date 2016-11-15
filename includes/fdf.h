@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:46:42 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 11:14:15 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/15 15:28:35 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_T			"- FdF -"
 # define FDF_W			600
 # define FDF_H			400
-# define FDF_ZOOM		20
+# define FDF_ZOOM		42
 # define FDF_ZOOM_MAX	100
 # define FDF_AMP_MAX	10
 
@@ -37,7 +37,7 @@ typedef struct			s_bres
 	int					dy;
 	int					sx;
 	int					sy;
-	int					err;
+	int					e;
 	int					e2;
 }						t_bres;
 
@@ -62,9 +62,8 @@ typedef struct			s_map
 	int					height;
 	int					x;
 	int					y;
-	int					view;
 	int					amp;
-	float				inclin;
+	int					view;
 	char				*file;
 	int					**tab;
 }						t_map;
@@ -95,31 +94,17 @@ typedef struct			s_mlx
 	struct s_map		map;
 }						t_mlx;
 
-
 void					quit(t_mlx *mlx);
-void					clean(t_mlx *mlx);
 void					reset(t_mlx *mlx);
+void					draw_map(t_mlx *mlx);
 void					die(t_mlx *mlx, char *msg);
 void					init(int width, int height, char *title, char *file);
 
-void					image_put_pixel(t_mlx *mlx, t_point a, t_color c);
-void					trace_segment(t_mlx *mlx, t_point a, t_point b);
-
-int						get_nb_line(t_mlx *mlx);
 int						**parse_map(t_mlx *mlx);
-
-// t_point					create_point(t_mlx *mlx, int x, int y, int z);
-t_point					create_point(t_mlx *mlx, int y, int z);
-void					draw_map(t_mlx *mlx);
-
-int						loop_hook(t_mlx *mlx);
-void					deep(t_mlx *mlx, int key);
-void					zoom(t_mlx *mlx, int key);
-void					move(t_mlx *mlx, int key);
+int						get_nb_line(t_mlx *mlx);
 int						key_hook(int keycode, t_mlx *mlx);
 
-void					init_color(t_point *a, int z);
-void					tab_to_iso(t_mlx *mlx);
-t_point					cal_i(int y, int x, int z, t_mlx *mlx);
+t_point					create_point(t_mlx *mlx, int y, int z);
+
 
 #endif

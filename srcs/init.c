@@ -6,13 +6,13 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 06:41:06 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 11:57:06 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/15 15:48:22 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void		init_window(t_mlx *mlx, int width, int height, char *title)
+static void	init_window(t_mlx *mlx, int width, int height, char *title)
 {
 	mlx->win.width = width;
 	mlx->win.height = height;
@@ -21,7 +21,7 @@ static void		init_window(t_mlx *mlx, int width, int height, char *title)
 		die(NULL, "ERROR: Failed to create new window!");
 }
 
-static void		init_image(t_mlx *mlx)
+static void	init_image(t_mlx *mlx)
 {
 	if (!(mlx->img.ptr = mlx_new_image(mlx->ptr, mlx->win.width,
 		mlx->win.height)))
@@ -31,7 +31,7 @@ static void		init_image(t_mlx *mlx)
 		die(NULL, "ERROR: Failed to get the image data address!");
 }
 
-static void		init_map(t_mlx *mlx, char *file)
+static void	init_map(t_mlx *mlx, char *file)
 {
 	mlx->map.file = file;
 	mlx->map.height = get_nb_line(mlx);
@@ -41,16 +41,15 @@ static void		init_map(t_mlx *mlx, char *file)
 	reset(mlx);
 }
 
-void			reset(t_mlx *mlx)
+void		reset(t_mlx *mlx)
 {
 	mlx->img.zoom = FDF_ZOOM;
-	mlx->map.x = (mlx->win.width - mlx->map.width) / 3;
-	mlx->map.y = ((mlx->win.height - mlx->map.height) / 5);
-	mlx->map.inclin = 1;
 	mlx->map.amp = 1;
+	mlx->map.x = mlx->win.width / 3;
+	mlx->map.y = mlx->win.height / 4;
 }
 
-void			init(int width, int height, char *title, char *file)
+void		init(int width, int height, char *title, char *file)
 {
 	t_mlx		mlx;
 
@@ -59,13 +58,14 @@ void			init(int width, int height, char *title, char *file)
 	mlx.img.ptr = NULL;
 	mlx.map.tab = NULL;
 	if (!(mlx.ptr = mlx_init()))
-		die(NULL, "ERROR: Failed to init MLX library!");
+		die(NULL, "ERROR: Failed to initialize MLX library!");
 	init_window(&mlx, width, height, title);
 	init_image(&mlx);
 	init_map(&mlx, file);
 	mlx_key_hook(mlx.win.ptr, key_hook, &mlx);
-	// mlx_loop_hook(mlx.ptr, loop_hook, &mlx);
+	// mlx_mouse_hook(mlx.win.ptr, key_hook, &mlx);
+	mlx_do_key_autorepeaton(mlx.ptr);
 	draw_map(&mlx);
 	if (!mlx_loop(mlx.ptr))
-		die(&mlx, "ERROR: Failed to init MLX loop!");
+		die(&mlx, "ERROR: Failed to initialize MLX loop!");
 }

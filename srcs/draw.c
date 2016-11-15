@@ -6,13 +6,13 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 07:51:58 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 11:58:05 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/15 15:33:48 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_color	get_color(int z1, int z2)
+static t_color	get_color(int z1, int z2)
 {
 	t_color		c;
 
@@ -40,7 +40,7 @@ t_color	get_color(int z1, int z2)
 	return (c);
 }
 
-void	image_put_pixel(t_mlx *mlx, t_point a, t_color c)
+static void		image_put_pixel(t_mlx *mlx, t_point a, t_color c)
 {
 	if (0 <= a.x && a.x < mlx->win.width && 0 <= a.y && a.y < mlx->win.height)
 	{
@@ -50,7 +50,7 @@ void	image_put_pixel(t_mlx *mlx, t_point a, t_color c)
 	}
 }
 
-void	trace_segment(t_mlx *mlx, t_point a, t_point b)
+static void		trace_segment(t_mlx *mlx, t_point a, t_point b)
 {
 	t_bres		bres;
 
@@ -58,25 +58,25 @@ void	trace_segment(t_mlx *mlx, t_point a, t_point b)
 	bres.sx = a.x < b.x ? 1 : -1;
 	bres.dy = abs((b.y - a.y));
 	bres.sy = a.y < b.y ? 1 : -1;
-	bres.err = (bres.dx > bres.dy ? bres.dx : -bres.dy) / 2;
+	bres.e = (bres.dx > bres.dy ? bres.dx : -bres.dy) / 2;
 	while (!(a.x == b.x && a.y == b.y))
 	{
 		image_put_pixel(mlx, a, get_color(a.z, b.z));
-		bres.e2 = bres.err;
+		bres.e2 = bres.e;
 		if (bres.e2 > -bres.dx)
 		{
-			bres.err -= bres.dy;
+			bres.e -= bres.dy;
 			a.x += bres.sx;
 		}
 		if (bres.e2 < bres.dy)
 		{
-			bres.err += bres.dx;
+			bres.e += bres.dx;
 			a.y += bres.sy;
 		}
 	}
 }
 
-void	draw_map(t_mlx *mlx)
+void			draw_map(t_mlx *mlx)
 {
 	int			x;
 	int			y;
@@ -87,7 +87,7 @@ void	draw_map(t_mlx *mlx)
 	while (y < mlx->map.height)
 	{
 		x = 0;
-		while (x < mlx->map.tab[y][0])
+		while (x < mlx->map.width)
 		{
 			a = create_point(mlx, x, y);
 			if(x < mlx->map.tab[y][0] - 1)
@@ -99,5 +99,5 @@ void	draw_map(t_mlx *mlx)
 		y++;
 	}
 	if(!mlx_put_image_to_window(mlx->ptr, mlx->win.ptr, mlx->img.ptr, 0, 0))
-		die(mlx, "ERROR: Failed to load image in the window!");
+		die(mlx, "ERROR: Failed to load image in the window! (draw_map)");
 }

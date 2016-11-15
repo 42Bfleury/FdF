@@ -6,7 +6,7 @@
 #    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/14 11:58:54 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/15 12:12:07 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,11 @@ OBJ_MSG			= "$(YELLOW)Generating $(NAME) object...             $(END)\c"
 OBJ_CLN			= "$(RED)Removing $(NAME) objects...              $(END)\c"
 EXE_CLN			= "$(RED)Removing $(NAME) $(TYPEFILE)...           $(END)\c"
 
-LIB				= -L $(LIB_DIR) -lftgnl
 LIB_DIR			= libft
+LIB				= -L $(LIB_DIR) -lftgnl
 
-MLX				= -L $(MLX_DIR) -lmlx
 MLX_DIR			= minilibx_macos
+MLX				= -L $(MLX_DIR) -lmlx
 
 SRC_DIR			= srcs
 OBJ_DIR			= objs
@@ -81,19 +81,6 @@ re:				fclean all
 
 
 
-################################### LINUX ######################################
-
-
-
-linux:			changevar all
-
-changevar:
-				$(eval MLX_DIR:= .minilibx)
-				$(eval FW:= -L/usr/include -lXext -lX11 -lm -lbsd)
-
-relinux:		fclean linux
-
-
 
 ################################### LIBFT ######################################
 
@@ -129,7 +116,6 @@ xcleanmlx:
 
 
 
-.PHONY:			all clean xclean fclean re \
+.PHONY:			all build clean xclean fclean re \
 				libft cleanlibft xcleanlibft fcleanlibft relibft \
 				mlx cleanmlx xcleanmlx fcleanmlx remlx \
-				build linux changevar

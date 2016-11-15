@@ -6,13 +6,13 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 08:12:56 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/14 11:47:23 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/15 13:20:09 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		clean(t_mlx *mlx)
+static void	clean(t_mlx *mlx)
 {
 	int		i;
 
@@ -33,17 +33,17 @@ void		clean(t_mlx *mlx)
 		free(mlx->ptr);
 }
 
-void		die(t_mlx *mlx, char *msg)
-{
-	if (mlx != NULL)
-		clean(mlx);
-	ft_putendl(msg);
-	exit(-1);
-}
-
-void	quit(t_mlx *mlx)
+void		quit(t_mlx *mlx)
 {
 	if (mlx != NULL)
 		clean(mlx);
 	exit(0);
+}
+
+void		die(t_mlx *mlx, char *msg)
+{
+	if (mlx == NULL)
+		clean(mlx);
+	ft_putendl(msg);
+	exit(-1);
 }
