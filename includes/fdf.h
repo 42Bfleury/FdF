@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:46:42 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/16 12:10:17 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/16 13:07:22 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ typedef struct			s_image
 typedef struct			s_window
 {
 	void				*ptr;
+	char				*title;
 	int					width;
 	int					height;
-	char				*title;
 }						t_window;
 
 typedef struct			s_mlx

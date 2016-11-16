@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 06:41:06 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/15 15:48:22 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/16 18:04:45 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,15 @@ static void	init_map(t_mlx *mlx, char *file)
 	reset(mlx);
 }
 
-void		reset(t_mlx *mlx)
-{
-	mlx->img.zoom = FDF_ZOOM;
-	mlx->map.amp = 1;
-	mlx->map.x = mlx->win.width / 3;
-	mlx->map.y = mlx->win.height / 4;
-}
-
 void		init(int width, int height, char *title, char *file)
 {
 	t_mlx		mlx;
 
-	mlx.ptr = NULL;
-	mlx.win.ptr = NULL;
-	mlx.img.ptr = NULL;
-	mlx.map.tab = NULL;
+	// mlx.ptr = NULL;
+	// mlx.win.ptr = NULL;
+	// mlx.img.ptr = NULL;
+	// mlx.map.tab = NULL;
+	ft_memset(&mlx, 0, sizeof(mlx));
 	if (!(mlx.ptr = mlx_init()))
 		die(NULL, "ERROR: Failed to initialize MLX library!");
 	init_window(&mlx, width, height, title);
@@ -68,4 +61,12 @@ void		init(int width, int height, char *title, char *file)
 	draw_map(&mlx);
 	if (!mlx_loop(mlx.ptr))
 		die(&mlx, "ERROR: Failed to initialize MLX loop!");
+}
+
+void		reset(t_mlx *mlx)
+{
+	mlx->img.zoom = FDF_ZOOM;
+	mlx->map.amp = 1;
+	mlx->map.x = mlx->win.width / 3;
+	mlx->map.y = mlx->win.height / 4;
 }
