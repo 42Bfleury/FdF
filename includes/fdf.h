@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:46:42 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/15 15:28:35 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/11/16 12:10:17 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@
 # define WHITE	c.red = 255;	c.green = 255;		c.blue = 255;
 
 # include "../../GNL/includes/get_next_line.h"
-# include "../minilibx_macos/includes/mlx.h"
+# include "../minilibx/includes/mlx.h"
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>
 
 typedef struct			s_bres
 {

@@ -6,7 +6,7 @@
 #    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/15 12:12:07 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/16 12:10:00 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ EXE_CLN			= "$(RED)Removing $(NAME) $(TYPEFILE)...           $(END)\c"
 LIB_DIR			= libft
 LIB				= -L $(LIB_DIR) -lftgnl
 
-MLX_DIR			= minilibx_macos
+MLX_DIR			= minilibx
 MLX				= -L $(MLX_DIR) -lmlx
 
 SRC_DIR			= srcs
