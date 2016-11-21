@@ -6,13 +6,13 @@
 #    By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 01:07:07 by bfleury           #+#    #+#              #
-#    Updated: 2016/11/21 09:02:20 by bfleury          ###   ########.fr        #
+#    Updated: 2016/11/21 14:29:46 by bfleury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= fdf
 TYPEFILE		= executable
-DEBUG			= TRUE
+DEBUG			= FALSE
 
 RED				= \033[31m
 YELLOW			= \033[33m
