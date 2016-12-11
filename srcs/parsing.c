@@ -6,7 +6,7 @@
 /*   By: bfleury <bfleury@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 03:45:08 by bfleury           #+#    #+#             */
-/*   Updated: 2016/11/21 09:35:40 by bfleury          ###   ########.fr       */
+/*   Updated: 2016/12/11 03:12:32 by bfleury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int			get_nb_line(t_mlx *mlx)
 	char	*line;
 
 	if ((fd = open(mlx->map.file, O_RDONLY)) < 0)
-		die(NULL, "Failed to open file!(get_nb_line)");
+		die(NULL, "Failed to open file! (get_nb_line)");
 	nb_line = 0;
 	while ((read = get_next_line(fd, &line)))
 	{
